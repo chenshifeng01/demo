@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="java-common" />
         <module name="jdkdesignpatterns" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="java-common" target="1.5" />
       <module name="jdkdesignpatterns" target="1.5" />
     </bytecodeTargetLevel>
   </component>
