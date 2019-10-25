@@ -1,0 +1,36 @@
+jvm内存三大核心区域及其jvm内存
+
+1、jvm中包含：方法区、Java堆、Java栈、程序计数器、本地方法栈等
+
+2、jvm运行数据区域三大核心
+    方法区(method area)、Java堆(heap area)、Java栈(stock area)
+
+3.heap area
+    a.存储的都是object对象实力，对象实例，对象实例中一般包含了其数据成员以及与该对象对应的class信息
+    b.一个jvm实例在运行的时候只有一个heap区域，该区域被所有线程共享
+
+4、method area
+    a.方法区域又名静态成员区域，包含整个程序的class、static成员等；
+    b.方法区域所有的线程共享
+
+5.stack area
+    a.stack 区域属于线程私有，每个线程都会包含要给stack区域，stack区域中包含有基本的数据类型以及对象的引用，其他线程均不能直接方法该区域
+    b.分为三部分：基本数据类型区域/操作指令区域、上下文等；
+
+
+ * 从jvm调用的角度分析Java程序对内存空间的使用：
+ * 当jvm进程启动的时候，会从类加载路径中找到包含main方法的入口HelloJVM;
+ * 找到Hellojvm后直接读取该文件中的二进制并且吧该类的信息放到运行收的Method内存区域中；
+ * 然后会为到Hellojvm中的main方法的字节码中开始执行main方法中的指令：
+ * Student student = new Student("dt_spark");
+ * 此时会创建student实例对象并且使用student来应用该对象（或者说对该对象命名），其内幕如下：
+ * 第一步： jvm会直接到method区域中区查找student类的信息，此时发现没有Student类，就通过
+ *         类加载器加载该student类文件；
+ * 第二步：在jvm的method区域加载并找到类student类之后会在Heap区域中为student实例对象分配内存，
+ *          并且在student的实例对象中持有指向方法区域中的Student类中的应用（内存地址）；
+ * 第三步：JVM实例完成后会在当前线程中为stack中的reference建立实例的引用关系，此时会赋予给student
+ *
+ * 在JVM中方法的调用一定是属于线程行为，也就是说方法调用本身会发展在调用线程的方法调用栈：
+ *      线程的方法调用栈（Method Stack Frames），每一个方法的调用就是方法调用栈中的一个Frame，该
+ *      Frame包含类方法的参数、局部变量、临时数据等：
+ *                          student.sayHello();

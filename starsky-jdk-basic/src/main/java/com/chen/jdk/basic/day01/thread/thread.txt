@@ -1,0 +1,84 @@
+线程创建
+    v1、Runnable实现接口
+    v1_1、继承Thread类
+    v1_2、匿名内部类创建线程
+线程通信
+    V2、sleep(100)
+        1、Thread类里的静态方法
+        2、睡眠时间毫秒
+        3、不释放所在线程锁
+    v2_1、wait()
+        1、java.lang.Object类里的非静态方法
+        2、wait()调用后，释放调用wait对象的线程锁，
+           如果对象不占用锁则报IllegalMonitorStateException
+        3、无参 则会一直等直到 notify()或notifyAll()
+        4、wait(100) 单位毫秒 超时自动被唤醒
+    v2_2、notify()
+        1、java.lang.Object类里的非静态方法
+        2、notify()调用后，通知同一个线程锁下wait()，继续往下执行
+        3、notifyAll()调用后，通知所有线程锁下wait()，继续往下执行
+    v2_3、join()
+        1、Thread类里的非静态方法
+        2、a.join() 等待a线程执行完毕再接着执行a.join()所在的线程
+        3、main{ a.start();b.start();a.join();}
+          main线程先开启了A,B线程，B线程执行不受a.join影响的
+          只是说主线程等待A执行完再执行，B线程是独立的不受影响的
+     v2_4、Interrupt()
+          1、Thread的非静态方法
+          2、thread.interrupt();//设置中断标志位为true
+          3、sleep() wait() join() 不断检测线程的中断位
+             如果中断为true报InterruptedException 如果false不处理
+          4、抛出InterruptedException 清除中断标志位
+             即设置中断标志位为false
+     v2_5、yield()
+         1、Thread的静态方法
+         2、线程 从运行状态--到就绪状态
+         3、线程在 this.start()准备执行——就绪状态run()运行——就是运行状态
+     v2_6、对象调用wait()（疑惑-在对象是一个线程的前提下，
+           线程开启再调用调用wait,不会起到等待的效果）
+
+          if(对象==类实例 && 类实例.start()){
+                wait()等待的是类实例run方法执行完
+          }else {//!类实例.start() || 对象!=类实例
+                wait()等待所在线程
+          } //TODO 代码运行总结的不知道对不对
+      v2_7、sleep()和wait()区别
+          1、wait()等待释放锁
+          2、sleep()等待不释放锁
+线程关键字
+    v3、volatile
+    主要总结 volatile修饰 线程私有变量改变主内存立即改变，
+            没有修饰线程私有变量改变等线程结束主内存改变
+       内存模型的相关概念
+         cup——》   cache
+         cup——》   cache|| -----》 总线锁或者缓存一致性协议----> 主存
+         cup——》   cache
+       并发编程中的三个概念
+         原子性 即一个操作或者多个操作要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行。
+         可见性  可见性是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值
+         有序性  即程序执行的顺序按照代码的先后顺序执行
+       volatile具有可见性不具有原子性
+       常用场景:
+           1.状态标记量
+           2.double check
+    v3_1、AtomicInteger  原子性变量
+    v3_2、ThreadLocal    线程本地变量——每个线程有自己独立的变量
+    v3_3、验证volatile不具备原子性
+         COUNT++不具备原子性COUNT从主内存复制然后+1
+         在执行+1这个操作的时候主内又被复制出去了一份 导致COUNT没有保证原子性
+线程锁
+     v4、synchronized
+        Class类的所有对象的锁
+            锁类、锁类的静态代码块、静态属性、
+        单个对象的锁
+            锁对像、锁非静态代码块、锁非静态属性
+      v4_1、Lock
+         Lock 接口 ReentrantLock实现类
+         lock.lock();
+         lock.unlock();
+         lock如果定义在线程自己的方法类，则只是锁自己的线程并不能保证多个线程同步执行
+线程池
+    FutureTask
+    Future是一个接口，代表可以取消的任务，并可以获得任务的执行结果
+    FutureTask 是基本的实现了Future和runnable接口
+    实现runnable接口，说明可以把FutureTask实例传入到Thread中，在一个新的线程中执行。

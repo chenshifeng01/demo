@@ -1,11 +1,13 @@
 package com.csf.common.throttle.ratelimiter;
 
+import com.google.common.util.concurrent.RateLimiter;
+
 import java.util.Date;
 
 /**
  * Created by hand on 2019/1/7.
  */
-public class RateLimiter {
+public class RateLimiterKit {
 
 
     //限流四个

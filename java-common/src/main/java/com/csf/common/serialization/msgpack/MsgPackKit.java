@@ -7,7 +7,7 @@ import lombok.SneakyThrows;
 import org.msgpack.jackson.dataformat.MessagePackFactory;
 
 /**
- * 在使用msgpack序列化最好的（ 如果是map中有Date反序列化会装换成long类型时间戳）
+ * 在使用msgpack序列化最好的（ 如果是map中有Date反序列化会转换成long类型时间戳）
  * Created by hand on 2019/1/8.
  */
 public class MsgPackKit {

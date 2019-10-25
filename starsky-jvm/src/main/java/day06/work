@@ -1,0 +1,3 @@
+实战演示从OOM推导出JVM GC时候基于的内存结构:young Generation(eden、from、to)（年轻代）、 old Generation（老年代）、 permanent Generation(永生代)
+1、实战演示windows和linux下的OOM
+2、GC时候基于的内存结构
