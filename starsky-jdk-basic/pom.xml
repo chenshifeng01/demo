@@ -203,7 +203,7 @@
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.10</version>
+            <version>1.4.18</version>
         </dependency>
 
         <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.icepdf/icepdf-core &ndash;&gt;-->
